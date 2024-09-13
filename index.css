@@ -1,0 +1,56 @@
+/* Base styles */
+body {
+    background-image: url('Future Technology.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+}
+
+
+
+#loginButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: rgba(36, 36, 95, 0.304);
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    margin-top: 450px;
+}
+
+#loginButton:hover {
+    background-color: rgba(36, 36, 95, 1);
+    transform: scale(1.05);
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+
+
+    #loginButton {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        background-size: 200% auto;
+    }
+
+
+    #loginButton {
+        width: 100%;
+    }
+}

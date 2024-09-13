@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members and Tasks Grid</title>
+    <style>
+        h2{
+            font-weight:800;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .teams {
+            margin-left: 30px;
+        }
+        .container {
+            background-color: black;
+            font-family: serif;
+            background-image: url('Future Technology.png');
+            display:flex;
+            align-content: center;
+            
+        }
+        .nav-item {
+            padding: 20px;
+            font-size: large;
+        }
+        .navbar-nav .nav-link {
+            color: white;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .team-member {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        .team-member h2 {
+            margin-top: 0;
+            color: #333;
+            
+        }
+        .department {
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .tasks {
+            list-style-type: none;
+            padding: 0;
+        }
+        .tasks li {
+            background-color: #f0f0f0;
+            margin-bottom: 5px;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .tasks li.completed::before {
+            content: '✔ ';
+            color: green;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .tasks li::before {
+            content: '⬜ ';
+            margin-right: 10px;
+        }
+        .tasks li.completed {
+            text-decoration: none;
+            color: #333;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 1100px;
+            height: 50px;
+            margin-top: 50px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-black">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="logo.png" alt="Bootstrap" width="120" height="120">
+          </a>     
+          <button onclick="logout()">Logout</button>
+
+        </div>
+      </nav>
+      <div class="teams">
+        <h2>Technical Team</h2>
+        <div id="teamGrid0" class="grid-container"></div>
+        <h2>Human Resource Management</h2>
+        <div id="teamGrid2" class="grid-container"></div>
+        <h2>Product Development</h2>
+        <div id="teamGrid1" class="grid-container"></div>
+
+        <h2>Graphics Team</h2>
+        <div id="teamGrid3" class="grid-container"></div>
+      </div>
+
+    <script>
+                const technicalteam = [
+            {
+                name: "Luke(Team Lead)",
+                department: "System Administrator",
+                tasks: [
+                    { description: "Install and configure hardware and software", completed: true },
+                    { description: "Manage and maintain IT infrastructure", completed: false },
+                    { description: "Check network security", completed: false }
+                ]
+            },
+            {
+                name: "Jim Fuller",
+                department: "Network Engineer",
+                tasks: [
+                    { description: "Troubleshoot network issues", completed: true },
+                    { description: "Configure routers, switches, and firewalls", completed: true },
+                    { description: "Check network security and performance", completed: false }
+                ]
+            },
+            {
+                name: "Charlie",
+                department: "DevOps Engineer",
+                tasks: [
+                    { description: "Automate software development", completed: false },
+                    { description: "Set up monitoring", completed: true },
+                    { description: "Optimize server performance", completed: false }
+                ]
+            },
+            {
+                name: "Diana Prince",
+                department: "UX/UI",
+                tasks: [
+                    { description: "Create wireframes", completed: true },
+                    { description: "Conduct user research", completed: false },
+                    { description: "Design mobile app interface", completed: false }
+                ]
+            }
+        ];
+        const teamMembers = [
+            {
+                name: "Alice Johnson(Team Lead)",
+                department: "Frontend",
+                tasks: [
+                    { description: "Design new homepage", completed: true },
+                    { description: "Implement responsive layout", completed: false },
+                    { description: "Optimize CSS", completed: false }
+                ]
+            },
+            {
+                name: "Bob Smith",
+                department: "Backend",
+                tasks: [
+                    { description: "Set up database", completed: true },
+                    { description: "Create API endpoints", completed: true },
+                    { description: "Implement user authentication", completed: false }
+                ]
+            },
+            {
+                name: "Charlie Brown",
+                department: "DevOps",
+                tasks: [
+                    { description: "Configure CI/CD pipeline", completed: false },
+                    { description: "Set up monitoring", completed: true },
+                    { description: "Optimize server performance", completed: false }
+                ]
+            },
+            {
+                name: "Diana Prince",
+                department: "UX/UI",
+                tasks: [
+                    { description: "Create wireframes", completed: true },
+                    { description: "Conduct user research", completed: false },
+                    { description: "Design mobile app interface", completed: false }
+                ]
+            }
+        ];
+
+        const hrteamMembers = [
+            {
+                name: "Davis(Team Lead)",
+                department: "HR Manager",
+                tasks: [
+                    { description: "Design HR workflow", completed: true },
+                    { description: "Implement performance reviews", completed: false },
+                    { description: "Optimize hiring process", completed: false }
+                ]
+            },
+            {
+                name: "Jane Doe",
+                department: "HR Assistant",
+                tasks: [
+                    { description: "Schedule interviews", completed: true },
+                    { description: "Create candidate reports", completed: true },
+                    { description: "Manage onboarding", completed: false }
+                ]
+            },
+            {
+                name: "Mary Kate",
+                department: "Recruitment Specialist",
+                tasks: [
+                    { description: "Source and screen candidates", completed: true },
+                    { description: "Conducts interviews", completed: true },
+                    { description: "Extends job offers", completed: false }
+                ]
+            },
+            {
+                name: "Harry Jim",
+                department: "Training and Development Specialist",
+                tasks: [
+                    { description: "Identifies training needs", completed: true },
+                    { description: "Deliver training programs", completed: false },
+                    { description: "Tracks employee performance", completed: true }
+                ]
+            }
+        ];
+        
+
+        const graphicsTeam = [
+  {
+    name: "Bill Joe(Team Lead)",
+    department:"Graphics Team lead",
+    tasks: [
+                    { description: "Set design standards and guidelines", completed: true },
+                    { description: "Manage project timelines and resources", completed: false },
+                    { description: "Provide creative direction and feedback", completed: true }
+                ]
+  },
+  {
+    name:"Stewart",
+    department: "Senior Graphic Designer",
+    tasks: [
+      { description:"Design logos, branding materials, and marketing collateral",completed: true },
+      { description:"Create illustrations and infographics",completed: true },
+      { description:"Develop website and app designs",completed: false}
+    ]
+  },
+  {
+    name:"Kyle",
+    department: "UI/UX Designer",
+    tasks: [
+      { description:"Conduct user research and analysis",completed: false },
+      { description:"Creates wireframes and prototypes",completed: true },
+      { description:"Designs user interfaces and interactions",completed: true }
+    ]
+  },
+  {
+    name:"Pearl Jane",
+    department: "Copywriter",
+    tasks: [
+      { description:"Develop written content for visual materials",completed: true },
+      { description:"Write headlines, captions, and taglines",completed: false},
+      { description:"Ensures content aligns with branding and messaging",completed: false}
+    ]
+  }
+
+  
+];
+
+        function createMemberCard(member) {
+            const card = document.createElement('div');
+            card.className = 'team-member';
+            
+            const name = document.createElement('h3');
+            name.textContent = member.name;
+            
+            const department = document.createElement('p');
+            department.className = 'department';
+            department.textContent = member.department;
+            
+            const taskList = document.createElement('ul');
+            taskList.className = 'tasks';
+            
+            member.tasks.forEach((task, index) => {
+                const taskItem = document.createElement('li');
+                taskItem.textContent = task.description;
+                if (task.completed) {
+                    taskItem.classList.add('completed');
+                }
+                taskItem.addEventListener('click', () => {
+                    // Toggle the completed state
+                    task.completed = !task.completed;
+                    taskItem.classList.toggle('completed');
+                });
+                taskList.appendChild(taskItem);
+            });
+            
+            card.appendChild(name);
+            card.appendChild(department);
+            card.appendChild(taskList);
+            
+            return card;
+        }
+
+        function renderTeamGrid(gridId, teamData) {
+            const grid = document.getElementById(gridId);
+            teamData.forEach(member => {
+                const card = createMemberCard(member);
+                grid.appendChild(card);
+            });
+        }
+        renderTeamGrid('teamGrid0', technicalteam);
+        renderTeamGrid('teamGrid2', hrteamMembers);
+        renderTeamGrid('teamGrid1', teamMembers);
+        
+        renderTeamGrid('teamGrid3', graphicsTeam);
+        function logout() {
+
+            window.location.href='index.html';
+
+        }
+
+    </script>
+</body>
+</html>
